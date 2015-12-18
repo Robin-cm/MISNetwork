@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		837B82221C225C8800EC2FE8 /* MISKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B82211C225C8800EC2FE8 /* MISKVStorage.m */; };
+		837B822A1C22634800EC2FE8 /* NSString+MISCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B82291C22634800EC2FE8 /* NSString+MISCommon.m */; };
+		837B822D1C22645200EC2FE8 /* NSData+MISCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B822C1C22645200EC2FE8 /* NSData+MISCommon.m */; };
+		837B82301C22664B00EC2FE8 /* NSNumber+MISCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 837B822F1C22664B00EC2FE8 /* NSNumber+MISCommon.m */; };
+		837B82321C22677400EC2FE8 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B82311C22677400EC2FE8 /* libsqlite3.0.tbd */; };
+		837B82341C22682E00EC2FE8 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 837B82331C22682E00EC2FE8 /* libz.1.2.5.tbd */; };
+		83AD4CF41C21551F005784B0 /* MISDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD4CF31C21551F005784B0 /* MISDiskCache.m */; };
+		83AD4CF71C21554D005784B0 /* MISMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD4CF61C21554D005784B0 /* MISMemoryCache.m */; };
+		83AD4CFA1C215560005784B0 /* MISCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 83AD4CF91C215560005784B0 /* MISCache.m */; };
 		83B837BF1C0EE730006DBCC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83B837B91C0EE730006DBCC4 /* Assets.xcassets */; };
 		83B837C01C0EE730006DBCC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B837BA1C0EE730006DBCC4 /* LaunchScreen.storyboard */; };
 		83B837C11C0EE730006DBCC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83B837BC1C0EE730006DBCC4 /* Main.storyboard */; };
@@ -36,6 +45,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		837B82201C225C8800EC2FE8 /* MISKVStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MISKVStorage.h; path = Cache/MISKVStorage.h; sourceTree = "<group>"; };
+		837B82211C225C8800EC2FE8 /* MISKVStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MISKVStorage.m; path = Cache/MISKVStorage.m; sourceTree = "<group>"; };
+		837B82281C22634800EC2FE8 /* NSString+MISCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MISCommon.h"; sourceTree = "<group>"; };
+		837B82291C22634800EC2FE8 /* NSString+MISCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MISCommon.m"; sourceTree = "<group>"; };
+		837B822B1C22645200EC2FE8 /* NSData+MISCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+MISCommon.h"; sourceTree = "<group>"; };
+		837B822C1C22645200EC2FE8 /* NSData+MISCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+MISCommon.m"; sourceTree = "<group>"; };
+		837B822E1C22664B00EC2FE8 /* NSNumber+MISCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+MISCommon.h"; sourceTree = "<group>"; };
+		837B822F1C22664B00EC2FE8 /* NSNumber+MISCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+MISCommon.m"; sourceTree = "<group>"; };
+		837B82311C22677400EC2FE8 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		837B82331C22682E00EC2FE8 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
+		83AD4CF21C21551F005784B0 /* MISDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MISDiskCache.h; path = Cache/MISDiskCache.h; sourceTree = "<group>"; };
+		83AD4CF31C21551F005784B0 /* MISDiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MISDiskCache.m; path = Cache/MISDiskCache.m; sourceTree = "<group>"; };
+		83AD4CF51C21554D005784B0 /* MISMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MISMemoryCache.h; path = Cache/MISMemoryCache.h; sourceTree = "<group>"; };
+		83AD4CF61C21554D005784B0 /* MISMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MISMemoryCache.m; path = Cache/MISMemoryCache.m; sourceTree = "<group>"; };
+		83AD4CF81C215560005784B0 /* MISCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MISCache.h; path = Cache/MISCache.h; sourceTree = "<group>"; };
+		83AD4CF91C215560005784B0 /* MISCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MISCache.m; path = Cache/MISCache.m; sourceTree = "<group>"; };
 		83B8379E1C0EE684006DBCC4 /* MISNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MISNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83B837B91C0EE730006DBCC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		83B837BB1C0EE730006DBCC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -94,12 +119,42 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				837B82341C22682E00EC2FE8 /* libz.1.2.5.tbd in Frameworks */,
+				837B82321C22677400EC2FE8 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		837B82271C22634800EC2FE8 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				837B82281C22634800EC2FE8 /* NSString+MISCommon.h */,
+				837B82291C22634800EC2FE8 /* NSString+MISCommon.m */,
+				837B822B1C22645200EC2FE8 /* NSData+MISCommon.h */,
+				837B822C1C22645200EC2FE8 /* NSData+MISCommon.m */,
+				837B822E1C22664B00EC2FE8 /* NSNumber+MISCommon.h */,
+				837B822F1C22664B00EC2FE8 /* NSNumber+MISCommon.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		83AD4CF11C2154E5005784B0 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				83AD4CF21C21551F005784B0 /* MISDiskCache.h */,
+				83AD4CF31C21551F005784B0 /* MISDiskCache.m */,
+				83AD4CF51C21554D005784B0 /* MISMemoryCache.h */,
+				83AD4CF61C21554D005784B0 /* MISMemoryCache.m */,
+				83AD4CF81C215560005784B0 /* MISCache.h */,
+				83AD4CF91C215560005784B0 /* MISCache.m */,
+				837B82201C225C8800EC2FE8 /* MISKVStorage.h */,
+				837B82211C225C8800EC2FE8 /* MISKVStorage.m */,
+			);
+			name = Cache;
+			sourceTree = "<group>";
+		};
 		83B837951C0EE684006DBCC4 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +187,8 @@
 		83B837A11C0EE684006DBCC4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				837B82331C22682E00EC2FE8 /* libz.1.2.5.tbd */,
+				837B82311C22677400EC2FE8 /* libsqlite3.0.tbd */,
 				83F24FD01C0FD75300AD53DD /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -169,6 +226,7 @@
 		83B837CD1C0EE7D0006DBCC4 /* MISNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				837B82271C22634800EC2FE8 /* Categories */,
 				83CB0B7B1C114925006E71D9 /* Utils */,
 				83F24FD81C10065600AD53DD /* Generators */,
 				83B837D01C0EEB1C006DBCC4 /* Components */,
@@ -181,6 +239,7 @@
 		83B837D01C0EEB1C006DBCC4 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				83AD4CF11C2154E5005784B0 /* Cache */,
 				83B837F81C0EF011006DBCC4 /* MISRequestProxy.h */,
 				83B837F91C0EF011006DBCC4 /* MISRequestProxy.m */,
 				83F24FD21C0FDCE700AD53DD /* MISBaseRequest.h */,
@@ -325,20 +384,27 @@
 				83B837C71C0EE73C006DBCC4 /* AppDelegate.m in Sources */,
 				83F24FEB1C1037FF00AD53DD /* MISResponse.m in Sources */,
 				83CB0B991C118EE9006E71D9 /* AFURLRequestSerialization.m in Sources */,
+				837B822A1C22634800EC2FE8 /* NSString+MISCommon.m in Sources */,
 				83F24FD71C0FEBCE00AD53DD /* MISAppContext.m in Sources */,
+				83AD4CF71C21554D005784B0 /* MISMemoryCache.m in Sources */,
+				837B82221C225C8800EC2FE8 /* MISKVStorage.m in Sources */,
 				83CB0B951C118EE9006E71D9 /* AFHTTPSessionManager.m in Sources */,
 				83CB0B931C118EE9006E71D9 /* AFHTTPRequestOperation.m in Sources */,
 				83F24FDB1C10067C00AD53DD /* MISRequestGenerator.m in Sources */,
 				83CB0B971C118EE9006E71D9 /* AFSecurityPolicy.m in Sources */,
+				837B82301C22664B00EC2FE8 /* NSNumber+MISCommon.m in Sources */,
 				83CB0B7E1C114948006E71D9 /* MISNetworkUtil.m in Sources */,
 				83CB0B961C118EE9006E71D9 /* AFNetworkReachabilityManager.m in Sources */,
 				83CB0B9B1C118EE9006E71D9 /* AFURLSessionManager.m in Sources */,
 				83F24FE11C1014B700AD53DD /* MISRequestUrlGenerator.m in Sources */,
 				83F24FE81C102B7100AD53DD /* MISNetworkLogger.m in Sources */,
+				837B822D1C22645200EC2FE8 /* NSData+MISCommon.m in Sources */,
 				83CB0B7A1C1145A6006E71D9 /* MISRequestCache.m in Sources */,
+				83AD4CF41C21551F005784B0 /* MISDiskCache.m in Sources */,
 				83F24FD41C0FDCE700AD53DD /* MISBaseRequest.m in Sources */,
 				83CB0B9A1C118EE9006E71D9 /* AFURLResponseSerialization.m in Sources */,
 				83B837CC1C0EE77C006DBCC4 /* ViewController.m in Sources */,
+				83AD4CFA1C215560005784B0 /* MISCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

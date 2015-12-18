@@ -9,10 +9,16 @@
 #import "MISRequestCache.h"
 #import "MISNetworkConfig.h"
 #import "MISNetworkUtil.h"
+#import "MISCache.h"
 
 @interface MISRequestCache ()
 
 @property (nonatomic, strong) NSCache* cache;
+
+/**
+ *  缓存类
+ */
+@property (nonatomic, strong) MISCache* misCache;
 
 @end
 
@@ -20,9 +26,9 @@
 
 #pragma mark - Getter
 
-- (NSCache*) cache
+- (NSCache*)cache
 {
-    if(!_cache){
+    if (!_cache) {
         _cache = [[NSCache alloc] init];
         //只缓存1000条
         _cache.countLimit = kMISCacheCountLimit;
@@ -30,30 +36,36 @@
     return _cache;
 }
 
+- (MISCache*)misCache
+{
+    if (!_misCache) {
+        _misCache = [[MISCache alloc] initWithName:@"MISNetwork"];
+    }
+    return _misCache;
+}
+
 #pragma mark - 类方法
 
 + (instancetype)sharedInstance
 {
-    static MISRequestCache *instance;
+    static MISRequestCache* instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if(!instance){
+        if (!instance) {
             instance = [[MISRequestCache alloc] init];
         }
     });
     return instance;
 }
 
-
 #pragma mark - 类公共方法
 
-- (NSString*) cacheKeyWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
+- (NSString*)cacheKeyWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
 {
     return [NSString stringWithFormat:@"%@%@%@", baseUrl, methodName, [MISNetworkUtil paramsStringFromParams:params urlEncoded:NO]];
 }
 
-
-- (NSData*) cachedDataWithKey:(NSString*)key
+- (NSData*)cachedDataWithKey:(NSString*)key
 {
     MISRequestCacheObject* cachedObject = [self.cache objectForKey:key];
     if (cachedObject.isOutdated || cachedObject.isEmpty) {
@@ -64,14 +76,12 @@
     }
 }
 
-
-- (NSData*) cachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
+- (NSData*)cachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
 {
     return [self cachedDataWithKey:[self cacheKeyWithBaseUrl:baseUrl methodName:methodName params:params]];
 }
 
-
-- (void) cacheDataWithData:(NSData*)data key:(NSString*)key
+- (void)cacheDataWithData:(NSData*)data key:(NSString*)key
 {
     MISRequestCacheObject* cachedObject = [self.cache objectForKey:key];
     if (!cachedObject) {
@@ -81,33 +91,27 @@
     [self.cache setObject:cachedObject forKey:key];
 }
 
-
-- (void) cacheDataWithData:(NSData*)data baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
+- (void)cacheDataWithData:(NSData*)data baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
 {
     [self cacheDataWithData:data key:[self cacheKeyWithBaseUrl:baseUrl methodName:methodName params:params]];
 }
 
-
-- (void) deleteCachedDataWithKey:(NSString*)key
+- (void)deleteCachedDataWithKey:(NSString*)key
 {
     [self.cache removeObjectForKey:key];
 }
 
-
-- (void) deleteCachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
+- (void)deleteCachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params
 {
     [self deleteCachedDataWithKey:[self cacheKeyWithBaseUrl:baseUrl methodName:methodName params:params]];
 }
 
-
-- (void) clean
+- (void)clean
 {
     [self.cache removeAllObjects];
 }
 
-
 @end
-
 
 @interface MISRequestCacheObject ()
 
@@ -159,4 +163,3 @@
 }
 
 @end
-
