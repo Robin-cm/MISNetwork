@@ -18,7 +18,7 @@
  *
  *  @return 实例
  */
-+ (instancetype) sharedInstance;
++ (instancetype)sharedInstance;
 
 #pragma mark - 公共方法
 
@@ -27,15 +27,37 @@
  *
  *  @param requestId 请求的ID
  */
-- (void) cancelRequestWithRequestId:(NSInteger)requestId;
-
+- (void)cancelRequestWithRequestId:(NSInteger)requestId;
 
 /**
  *  取消多个请求
  *
  *  @param requestIds 请求ID的数组
  */
-- (void) cancelRequestWithRequestIds:(NSArray*)requestIds;
+- (void)cancelRequestWithRequestIds:(NSArray*)requestIds;
+
+/**
+ *  暂停一个请求
+ *
+ *  @param requestId 请求的ID
+ */
+- (void)pauseRequestWithRequestId:(NSInteger)requestId;
+
+/**
+ *  恢复一个请求
+ *
+ *  @param requestId 请求的ID
+ */
+- (void)resumeRequestWithRequestId:(NSInteger)requestId;
+
+/**
+ *  请求是否暂停
+ *
+ *  @param requestId 请求的ID
+ *
+ *  @return 是否暂停
+ */
+- (BOOL)isRequestPausedWithRequestId:(NSInteger)requestId;
 
 #pragma mark - 公共方法：请求
 
@@ -50,8 +72,7 @@
  *
  *  @return 请求的ID
  */
-- (NSInteger) callGetRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
-
+- (NSInteger)callGetRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
 
 /**
  *  发送GET请求
@@ -65,8 +86,7 @@
  *
  *  @return 请求的ID
  */
-- (NSInteger) callGetRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName downloadProgressBlock:(ProgressBlock)progressBlock success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
-
+- (NSInteger)callGetRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName downloadProgressBlock:(ProgressBlock)progressBlock success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
 
 /**
  *  发送POST请求
@@ -79,8 +99,7 @@
  *
  *  @return 请求ID
  */
-- (NSInteger) callPostRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
-
+- (NSInteger)callPostRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
 
 /**
  *  发送POST请求,上传媒体信息
@@ -95,22 +114,7 @@
  *
  *  @return 请求ID
  */
-- (NSInteger) callPostRequestWithParams:(NSDictionary *)params baseUrl:(NSString *)baseUrl methodName:(NSString *)methodName constructingBodyWithBlock:(ConstructingBodyBlock)bodyBlock uploadProgressBlock:(ProgressBlock)progressBlock success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
-
-
-/**
- *  发送DELETE请求
- *
- *  @param params     参数
- *  @param baseUrl    基本地址
- *  @param methodName 请求方法
- *  @param success    成功回调
- *  @param fail       错误回调
- *
- *  @return 请求ID
- */
-- (NSInteger) callDeleteRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
-
+- (NSInteger)callPostRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName constructingBodyWithBlock:(ConstructingBodyBlock)bodyBlock uploadProgressBlock:(ProgressBlock)progressBlock success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
 
 /**
  *  发送DELETE请求
@@ -123,8 +127,19 @@
  *
  *  @return 请求ID
  */
-- (NSInteger) callPutRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
+- (NSInteger)callDeleteRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
 
-
+/**
+ *  发送DELETE请求
+ *
+ *  @param params     参数
+ *  @param baseUrl    基本地址
+ *  @param methodName 请求方法
+ *  @param success    成功回调
+ *  @param fail       错误回调
+ *
+ *  @return 请求ID
+ */
+- (NSInteger)callPutRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail;
 
 @end

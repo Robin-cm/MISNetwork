@@ -47,21 +47,34 @@
     return isReachability;
 }
 
+- (BOOL)isLoading
+{
+    return self.requestIds.count > 0;
+}
+
+- (NSMutableArray*)requestIds
+{
+    if (!_requestIds) {
+        _requestIds = [[NSMutableArray alloc] init];
+    }
+    return _requestIds;
+}
+
 #pragma mark - 初始化
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        
+
         self.requestDelegate = nil;
         self.requestInterceptor = nil;
         self.requestValidator = nil;
-        
+
         self.responseData = nil;
-        
+
         self.shouldCache = NO;
-        
+
         //设置默认的返回状态
         _responseType = MISResponseTypeDefault;
         if ([self conformsToProtocol:@protocol(MISRequestProtocol)]) {
@@ -93,31 +106,32 @@
 - (BOOL)shouldSendRequestWithParams:(NSDictionary*)params
 {
     BOOL res = YES;
-    if(self.shouldSendRequestWithParamsBlock){
+    if (self.shouldSendRequestWithParamsBlock) {
         res = self.shouldSendRequestWithParamsBlock(params);
-    }else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:shouldSendRequestWithParams:)]){
+    }
+    else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:shouldSendRequestWithParams:)]) {
         res = [self.requestInterceptor request:self shouldSendRequestWithParams:params];
     }
     return res;
 }
 
-- (void) afterRequestWithParams:(NSDictionary*)params
+- (void)afterRequestWithParams:(NSDictionary*)params
 {
-    if(self.afterRequestWithParamsBlock){
+    if (self.afterRequestWithParamsBlock) {
         self.afterRequestWithParamsBlock(params);
-    }else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:afterRequestWithParams:)]){
+    }
+    else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:afterRequestWithParams:)]) {
         [self.requestInterceptor request:self afterRequestWithParams:params];
     }
 }
-
 
 #pragma mark - 公共方法
 
 - (NSInteger)start
 {
     NSDictionary* params = nil;
-    if (self.paramsDatasource && [self.paramsDatasource respondsToSelector:@selector(paramsForRequest)]) {
-        params = [self.paramsDatasource paramsForRequest];
+    if (self.paramsDatasource && [self.paramsDatasource respondsToSelector:@selector(paramsForRequest:)]) {
+        params = [self.paramsDatasource paramsForRequest:self];
     }
     else if (self.paramsForRequest) {
         params = self.paramsForRequest();
@@ -142,6 +156,21 @@
     [self removeFromRequestIdsWithId:requestId];
 }
 
+- (void)pauseRequestWithId:(NSInteger)requestId
+{
+    [[MISRequestProxy sharedInstance] pauseRequestWithRequestId:requestId];
+}
+
+- (void)resumeRequestWithId:(NSInteger)requestId
+{
+    [[MISRequestProxy sharedInstance] resumeRequestWithRequestId:requestId];
+}
+
+- (BOOL)isRequestPausedWithId:(NSInteger)requestId
+{
+    return [[MISRequestProxy sharedInstance] isRequestPausedWithRequestId:requestId];
+}
+
 #pragma mark - 自定义私有方法
 
 /**
@@ -157,11 +186,11 @@
     params = [self reformeParams:params];
     if ([self shouldSendRequestWithParams:params]) {
         if ([self isRequestCorrectWithParams:params]) {
-            
+
             if (self.shouldCache && [self hasCacheWithParams:params]) {
                 return 0;
             }
-            
+
             //校验通过
             if (self.isReachable) {
                 //有网络
@@ -187,11 +216,13 @@
                 requestedParams[kMISRequestId] = @(requestId);
                 [self afterRequestWithParams:params];
                 return requestId;
-            }else{
+            }
+            else {
                 //没有网络
                 [self failWithResponse:nil errorType:MISResponseTypeNoNetwork];
             }
-        }else{
+        }
+        else {
             //参数错误
             [self failWithResponse:nil errorType:MISResponseTypeParamsError];
         }
@@ -213,8 +244,8 @@
             if (self.downloadBlock) {
                 self.downloadBlock(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
             }
-            else if (self.requestDelegate && [self.requestDelegate respondsToSelector:@selector(uploadProgressWithBytesWritten:totalBytesWritten:totalBytesExpectedToWrite:request:)]) {
-                [self.requestDelegate uploadProgressWithBytesWritten:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite request:self];
+            else if (self.requestDelegate && [self.requestDelegate respondsToSelector:@selector(downloadProgressWithBytesWritten:totalBytesWritten:totalBytesExpectedToWrite:request:)]) {
+                [self.requestDelegate downloadProgressWithBytesWritten:bytesWritten totalBytesWritten:totalBytesWritten totalBytesExpectedToWrite:totalBytesExpectedToWrite request:self];
             }
         }
         success:^(MISResponse* response) {
@@ -344,7 +375,6 @@
     return res;
 }
 
-
 /**
  *  返回的数据是否正确
  *
@@ -364,17 +394,17 @@
     return res;
 }
 
-
 /**
  *  成功回调之前
  *
  *  @param response 返回
  */
-- (void) beforePreformSuccessWithResponse:(MISResponse*)response
+- (void)beforePreformSuccessWithResponse:(MISResponse*)response
 {
-    if(self.beforePreformSuccessWithResponseBlock){
+    if (self.beforePreformSuccessWithResponseBlock) {
         self.beforePreformSuccessWithResponseBlock(response);
-    }else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:beforePreformSuccessWithResponse:)]){
+    }
+    else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:beforePreformSuccessWithResponse:)]) {
         [self.requestInterceptor request:self beforePreformSuccessWithResponse:response];
     }
 }
@@ -384,52 +414,52 @@
  *
  *  @param response 返回
  */
-- (void) afterPreformSuccessWithResponse:(MISResponse*)response
+- (void)afterPreformSuccessWithResponse:(MISResponse*)response
 {
-    if(self.afterPreformSuccessWithResponseBlock){
+    if (self.afterPreformSuccessWithResponseBlock) {
         self.afterPreformSuccessWithResponseBlock(response);
-    }else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:afterPreformSuccessWithResponse:)]){
+    }
+    else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:afterPreformSuccessWithResponse:)]) {
         [self.requestInterceptor request:self afterPreformSuccessWithResponse:response];
     }
 }
-
 
 /**
  *  错误回调之前
  *
  *  @param response 返回信息
  */
-- (void) beforePreformFailWithResponse:(MISResponse*)response
+- (void)beforePreformFailWithResponse:(MISResponse*)response
 {
-    if(self.beforePreformFailWithResponseBlock){
+    if (self.beforePreformFailWithResponseBlock) {
         self.beforePreformFailWithResponseBlock(response);
-    }else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:beforePreformFailWithResponse:)]){
+    }
+    else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:beforePreformFailWithResponse:)]) {
         [self.requestInterceptor request:self beforePreformFailWithResponse:response];
     }
 }
-
 
 /**
  *  错误回调之后
  *
  *  @param response 返回信息
  */
-- (void) afterPreformFailWithResponse:(MISResponse*)response
+- (void)afterPreformFailWithResponse:(MISResponse*)response
 {
-    if(self.afterPreformFailWithResponseBlock){
+    if (self.afterPreformFailWithResponseBlock) {
         self.afterPreformFailWithResponseBlock(response);
-    }else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:afterPreformFailWithResponse:)]){
+    }
+    else if (self.requestInterceptor && [self.requestInterceptor respondsToSelector:@selector(request:afterPreformFailWithResponse:)]) {
         [self.requestInterceptor request:self afterPreformFailWithResponse:response];
     }
 }
-
 
 /**
  *  请求成功
  *
  *  @param response 返回信息
  */
-- (void) successWithResponse:(MISResponse*)response
+- (void)successWithResponse:(MISResponse*)response
 {
     if (response.content) {
         self.responseData = [response.content copy];
@@ -437,21 +467,21 @@
     else {
         self.responseData = [response.responseData copy];
     }
-    
+
     [self removeFromRequestIdsWithId:response.requestId];
-    
+
     if ([self isResponseCorrectWithResponseData:self.responseData]) {
         if (self.shouldCache && !response.isCache) {
-            
+
             //如果需要缓存的话，在这里缓存返回来的数据
             [[MISRequestCache sharedInstance] cacheDataWithData:response.responseData baseUrl:self.child.baseUrl methodName:self.child.methodName params:response.requestParams];
-            
         }
-        
+
         [self beforePreformSuccessWithResponse:response];
-        if(self.requestDelegate && [self.requestDelegate respondsToSelector:@selector(successWithRequest:)]){
+        if (self.requestDelegate && [self.requestDelegate respondsToSelector:@selector(successWithRequest:)]) {
             [self.requestDelegate successWithRequest:self];
-        }else if (self.successBlock){
+        }
+        else if (self.successBlock) {
             self.successBlock();
         }
         [self afterPreformSuccessWithResponse:response];
@@ -461,33 +491,32 @@
     }
 }
 
-
 /**
  *  请求失败
  *
  *  @param response  返回信息
  *  @param errorType 错误信息
  */
-- (void) failWithResponse:(MISResponse*)response errorType:(MISResponseType)errorType
+- (void)failWithResponse:(MISResponse*)response errorType:(MISResponseType)errorType
 {
     self.responseType = errorType;
     [self removeFromRequestIdsWithId:response.requestId];
     [self beforePreformFailWithResponse:response];
-    if(self.requestDelegate && [self.requestDelegate respondsToSelector:@selector(failWithRequest:)]){
+    if (self.requestDelegate && [self.requestDelegate respondsToSelector:@selector(failWithRequest:)]) {
         [self.requestDelegate failWithRequest:self];
-    }else if (self.successBlock){
+    }
+    else if (self.successBlock) {
         self.failBlock();
     }
     [self afterPreformFailWithResponse:response];
 }
-
 
 /**
  *  删除请求ID列表中的对应的ID
  *
  *  @param requestId 要删除的请求ID
  */
-- (void) removeFromRequestIdsWithId:(NSInteger)requestId
+- (void)removeFromRequestIdsWithId:(NSInteger)requestId
 {
     NSNumber* requestIdToRemove = nil;
     for (NSNumber* storedRequestId in self.requestIds) {
@@ -500,7 +529,6 @@
         [self.requestIds removeObject:requestIdToRemove];
     }
 }
-
 
 /**
  *  是不是有缓存，没有缓存就添加到缓存
@@ -515,16 +543,15 @@
     if (!result) {
         return NO;
     }
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         MISResponse* response = [[MISResponse alloc] initWithData:result];
         response.requestParams = params;
         [MISNetworkLogger loginfoWithCachedResponse:response methodName:self.child.methodName baseUrl:self.child.baseUrl];
         [self successWithResponse:response];
     });
-    
+
     return YES;
 }
-
 
 @end

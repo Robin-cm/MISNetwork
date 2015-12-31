@@ -23,6 +23,8 @@
 		83B837C81C0EE73C006DBCC4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B837C61C0EE73C006DBCC4 /* main.m */; };
 		83B837CC1C0EE77C006DBCC4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B837CB1C0EE77C006DBCC4 /* ViewController.m */; };
 		83B837FA1C0EF011006DBCC4 /* MISRequestProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B837F91C0EF011006DBCC4 /* MISRequestProxy.m */; };
+		83BE4F3B1C33CD4500221A32 /* MISWeatherApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE4F3A1C33CD4500221A32 /* MISWeatherApi.m */; };
+		83BE4F3E1C33D72B00221A32 /* MISDownloadApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BE4F3D1C33D72B00221A32 /* MISDownloadApi.m */; };
 		83CB0B7A1C1145A6006E71D9 /* MISRequestCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CB0B791C1145A6006E71D9 /* MISRequestCache.m */; };
 		83CB0B7E1C114948006E71D9 /* MISNetworkUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CB0B7D1C114948006E71D9 /* MISNetworkUtil.m */; };
 		83CB0B931C118EE9006E71D9 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CB0B811C118EE9006E71D9 /* AFHTTPRequestOperation.m */; };
@@ -74,6 +76,10 @@
 		83B837CF1C0EE862006DBCC4 /* MISNetworkConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISNetworkConfig.h; sourceTree = "<group>"; };
 		83B837F81C0EF011006DBCC4 /* MISRequestProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISRequestProxy.h; sourceTree = "<group>"; };
 		83B837F91C0EF011006DBCC4 /* MISRequestProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISRequestProxy.m; sourceTree = "<group>"; };
+		83BE4F391C33CD4500221A32 /* MISWeatherApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MISWeatherApi.h; path = Apis/MISWeatherApi.h; sourceTree = "<group>"; };
+		83BE4F3A1C33CD4500221A32 /* MISWeatherApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MISWeatherApi.m; path = Apis/MISWeatherApi.m; sourceTree = "<group>"; };
+		83BE4F3C1C33D72B00221A32 /* MISDownloadApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MISDownloadApi.h; path = Apis/MISDownloadApi.h; sourceTree = "<group>"; };
+		83BE4F3D1C33D72B00221A32 /* MISDownloadApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MISDownloadApi.m; path = Apis/MISDownloadApi.m; sourceTree = "<group>"; };
 		83CB0B781C1145A6006E71D9 /* MISRequestCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISRequestCache.h; sourceTree = "<group>"; };
 		83CB0B791C1145A6006E71D9 /* MISRequestCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISRequestCache.m; sourceTree = "<group>"; };
 		83CB0B7C1C114948006E71D9 /* MISNetworkUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MISNetworkUtil.h; path = Utils/MISNetworkUtil.h; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 		83B837A01C0EE684006DBCC4 /* MISNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				83BE4F381C33CD1D00221A32 /* Apis */,
 				83B837CD1C0EE7D0006DBCC4 /* MISNetwork */,
 				83B837C91C0EE77C006DBCC4 /* ViewControllers */,
 				83B837C31C0EE73C006DBCC4 /* Globals */,
@@ -254,6 +261,17 @@
 				83CB0B791C1145A6006E71D9 /* MISRequestCache.m */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		83BE4F381C33CD1D00221A32 /* Apis */ = {
+			isa = PBXGroup;
+			children = (
+				83BE4F391C33CD4500221A32 /* MISWeatherApi.h */,
+				83BE4F3A1C33CD4500221A32 /* MISWeatherApi.m */,
+				83BE4F3C1C33D72B00221A32 /* MISDownloadApi.h */,
+				83BE4F3D1C33D72B00221A32 /* MISDownloadApi.m */,
+			);
+			name = Apis;
 			sourceTree = "<group>";
 		};
 		83CB0B7B1C114925006E71D9 /* Utils */ = {
@@ -385,6 +403,7 @@
 				83F24FEB1C1037FF00AD53DD /* MISResponse.m in Sources */,
 				83CB0B991C118EE9006E71D9 /* AFURLRequestSerialization.m in Sources */,
 				837B822A1C22634800EC2FE8 /* NSString+MISCommon.m in Sources */,
+				83BE4F3E1C33D72B00221A32 /* MISDownloadApi.m in Sources */,
 				83F24FD71C0FEBCE00AD53DD /* MISAppContext.m in Sources */,
 				83AD4CF71C21554D005784B0 /* MISMemoryCache.m in Sources */,
 				837B82221C225C8800EC2FE8 /* MISKVStorage.m in Sources */,
@@ -395,6 +414,7 @@
 				837B82301C22664B00EC2FE8 /* NSNumber+MISCommon.m in Sources */,
 				83CB0B7E1C114948006E71D9 /* MISNetworkUtil.m in Sources */,
 				83CB0B961C118EE9006E71D9 /* AFNetworkReachabilityManager.m in Sources */,
+				83BE4F3B1C33CD4500221A32 /* MISWeatherApi.m in Sources */,
 				83CB0B9B1C118EE9006E71D9 /* AFURLSessionManager.m in Sources */,
 				83F24FE11C1014B700AD53DD /* MISRequestUrlGenerator.m in Sources */,
 				83F24FE81C102B7100AD53DD /* MISNetworkLogger.m in Sources */,

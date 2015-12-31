@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "MISNetworkConfig.h"
 
+@class MISBaseRequest;
+
 /**
  *  请求的接口协议，子类必须实现
  */
@@ -21,21 +23,21 @@
  *
  *  @return url
  */
-- (NSString*) baseUrl;
+- (NSString*)baseUrl;
 
 /**
  *  请求的方法，比如/xxx/xxx/
  *
  *  @return 方法路径
  */
-- (NSString*) methodName;
+- (NSString*)methodName;
 
 /**
  *  请求的类型，比如MISRequestMethodGET
  *
  *  @return 请求类型
  */
-- (MISRequestMethod) requestMethod;
+- (MISRequestMethod)requestMethod;
 
 @optional
 
@@ -46,10 +48,9 @@
  *
  *  @return 返回新的参数字典
  */
-- (NSDictionary*) reformeParams:(NSDictionary*)params;
+- (NSDictionary*)reformeParams:(NSDictionary*)params;
 
 @end
-
 
 #pragma mark - 参数数据源：delegate和block两种方式
 
@@ -65,8 +66,7 @@
  *
  *  @return 参数字典
  */
-- (NSDictionary*) paramsForRequest;
-
+- (NSDictionary*)paramsForRequest:(MISBaseRequest*)request;
 
 @end
 
@@ -75,8 +75,7 @@
  *
  *  @return 请求的参数字典
  */
-typedef NSDictionary*(^MISRequestParamBlock)();
-
+typedef NSDictionary* (^MISRequestParamBlock)();
 
 #pragma mark - 请求的拦截器：delegate和block两种方式
 
@@ -94,8 +93,7 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *
  *  @return 是否发送
  */
-- (BOOL) request:(MISBaseRequest*)request shouldSendRequestWithParams:(NSDictionary*)params;
-
+- (BOOL)request:(MISBaseRequest*)request shouldSendRequestWithParams:(NSDictionary*)params;
 
 /**
  *  请求以后调用
@@ -103,7 +101,7 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  @param request 请求类
  *  @param params  参数
  */
-- (void) request:(MISBaseRequest *)request afterRequestWithParams:(NSDictionary *)params;
+- (void)request:(MISBaseRequest*)request afterRequestWithParams:(NSDictionary*)params;
 
 /**
  *  成功回调之前调用
@@ -111,7 +109,7 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  @param request  请求类
  *  @param response 返回数据类
  */
-- (void) request:(MISBaseRequest *)request beforePreformSuccessWithResponse:(MISResponse*)response;
+- (void)request:(MISBaseRequest*)request beforePreformSuccessWithResponse:(MISResponse*)response;
 
 /**
  *  成功回调之后调用
@@ -119,8 +117,7 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  @param request  请求类
  *  @param response 返回数据类
  */
-- (void) request:(MISBaseRequest *)request afterPreformSuccessWithResponse:(MISResponse*)response;
-
+- (void)request:(MISBaseRequest*)request afterPreformSuccessWithResponse:(MISResponse*)response;
 
 /**
  *  错误回调之前调用
@@ -128,7 +125,7 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  @param request  请求类
  *  @param response 返回数据类
  */
-- (void) request:(MISBaseRequest *)request beforePreformFailWithResponse:(MISResponse*)response;
+- (void)request:(MISBaseRequest*)request beforePreformFailWithResponse:(MISResponse*)response;
 
 /**
  *  错误回调之后调用
@@ -136,11 +133,9 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  @param request  请求类
  *  @param response 返回数据类
  */
-- (void) request:(MISBaseRequest *)request afterPreformFailWithResponse:(MISResponse*)response;
-
+- (void)request:(MISBaseRequest*)request afterPreformFailWithResponse:(MISResponse*)response;
 
 @end
-
 
 #pragma mark - 请求的校验器：delegate和block两种
 
@@ -156,8 +151,7 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *
  *  @return 是否正确
  */
-- (BOOL) request:(MISBaseRequest*)request isRequestCorrectWithParams:(NSDictionary*)params;
-
+- (BOOL)request:(MISBaseRequest*)request isRequestCorrectWithParams:(NSDictionary*)params;
 
 /**
  *  返回数据是否正确
@@ -167,10 +161,9 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *
  *  @return 是否正确
  */
-- (BOOL) request:(MISBaseRequest *)request isResponseCorrectWithResponseData:(id)responseData;
+- (BOOL)request:(MISBaseRequest*)request isResponseCorrectWithResponseData:(id)responseData;
 
 @end
-
 
 #pragma mark - 请求的代理：delegate和block两种
 
@@ -183,14 +176,14 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *
  *  @param request 请求类
  */
-- (void) successWithRequest:(MISBaseRequest*)request;
+- (void)successWithRequest:(MISBaseRequest*)request;
 
 /**
  *  请求失败
  *
  *  @param request 请求类
  */
-- (void) failWithRequest:(MISBaseRequest*)request;
+- (void)failWithRequest:(MISBaseRequest*)request;
 
 @optional
 
@@ -202,19 +195,17 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  @param totalBytesExpectedToWrite
  *  @param request
  */
-- (void) uploadProgressWithBytesWritten:(NSUInteger)bytesWritten totalBytesWritten:(long long)totalBytesWritten totalBytesExpectedToWrite:(long long)totalBytesExpectedToWrite request:(MISBaseRequest*)request;
-
+- (void)uploadProgressWithBytesWritten:(NSUInteger)bytesWritten totalBytesWritten:(long long)totalBytesWritten totalBytesExpectedToWrite:(long long)totalBytesExpectedToWrite request:(MISBaseRequest*)request;
 
 /**
  *  下载进度
  *
- *  @param bytesWritten
- *  @param totalBytesWritten
- *  @param totalBytesExpectedToWrite
+ *  @param bytesWritten                 本次写的文件的大小
+ *  @param totalBytesWritten            总共写的文件的大小
+ *  @param totalBytesExpectedToWrite    文件的本来的大小
  *  @param request
  */
-- (void) downloadProgressWithBytesWritten:(NSUInteger)bytesWritten totalBytesWritten:(long long)totalBytesWritten totalBytesExpectedToWrite:(long long)totalBytesExpectedToWrite request:(MISBaseRequest*)request;
-
+- (void)downloadProgressWithBytesWritten:(NSUInteger)bytesWritten totalBytesWritten:(long long)totalBytesWritten totalBytesExpectedToWrite:(long long)totalBytesExpectedToWrite request:(MISBaseRequest*)request;
 
 /**
  *  添加data到消息体
@@ -222,14 +213,11 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  @param request  请求类
  *  @param formData 表单信息
  */
-- (void) request:(MISBaseRequest*)request constructingBodyWithFormdata:(id<AFMultipartFormData>)formData;
-
+- (void)request:(MISBaseRequest*)request constructingBodyWithFormdata:(id<AFMultipartFormData>)formData;
 
 @end
 
-
 #pragma mark - MISBaseRequest类开始
-
 
 @interface MISBaseRequest : NSObject
 
@@ -238,26 +226,22 @@ typedef NSDictionary*(^MISRequestParamBlock)();
 /**
  *  子类实例
  */
-@property (nonatomic, weak) NSObject<MISRequestProtocol> *child;
-
+@property (nonatomic, weak) NSObject<MISRequestProtocol>* child;
 
 /**
  *  参数的数据源
  */
 @property (nonatomic, weak) id<MISRequestParamDatasource> paramsDatasource;
 
-
 /**
  *  拦截器
  */
 @property (nonatomic, weak) id<MISRequestInterceptor> requestInterceptor;
 
-
 /**
  *  请求的校验器
  */
 @property (nonatomic, weak) id<MISRequestValidator> requestValidator;
-
 
 /**
  *  请求代理
@@ -278,36 +262,30 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  */
 @property (nonatomic, copy) MISParamsValidatorBlock shouldSendRequestWithParamsBlock;
 
-
 /**
  *  请求后调用
  */
 @property (nonatomic, copy) MISParamsBlock afterRequestWithParamsBlock;
 
-
 /**
  *  成功回调之前调用
  */
-@property (nonatomic, copy) void(^beforePreformSuccessWithResponseBlock)(MISResponse* response);
-
+@property (nonatomic, copy) void (^beforePreformSuccessWithResponseBlock)(MISResponse* response);
 
 /**
  *  成功回调之后调用
  */
-@property (nonatomic, copy) void(^afterPreformSuccessWithResponseBlock)(MISResponse* response);
-
+@property (nonatomic, copy) void (^afterPreformSuccessWithResponseBlock)(MISResponse* response);
 
 /**
  *  错误回调之前调用
  */
-@property (nonatomic, copy) void(^beforePreformFailWithResponseBlock)(MISResponse* response);
-
+@property (nonatomic, copy) void (^beforePreformFailWithResponseBlock)(MISResponse* response);
 
 /**
  *  错误回调之后调用
  */
-@property (nonatomic, copy) void(^afterPreformFailWithResponseBlock)(MISResponse* response);
-
+@property (nonatomic, copy) void (^afterPreformFailWithResponseBlock)(MISResponse* response);
 
 #pragma mark - block相关：校验器
 
@@ -316,44 +294,37 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  */
 @property (nonatomic, copy) MISParamsValidatorBlock isRequestCorrectWithParamsBlock;
 
-
 /**
  *  返回数据校验
  */
-@property (nonatomic, copy) BOOL(^isResponseCorrectWithResponseDataBlock)(id responseData);
-
+@property (nonatomic, copy) BOOL (^isResponseCorrectWithResponseDataBlock)(id responseData);
 
 #pragma mark - block相关：请求回调
-
 
 /**
  *  请求成功回调
  */
-@property (nonatomic, copy) void(^successBlock)();
-
+@property (nonatomic, copy) void (^successBlock)();
 
 /**
  *  请求失败回调
  */
-@property (nonatomic, copy) void(^failBlock)();
+@property (nonatomic, copy) void (^failBlock)();
 
 /**
  *  上传回调
  */
 @property (nonatomic, copy) ProgressBlock uploadBlock;
 
-
 /**
  *  下载回调
  */
 @property (nonatomic, copy) ProgressBlock downloadBlock;
 
-
 /**
  *  消息体回调
  */
 @property (nonatomic, copy) ConstructingBodyBlock bodyBlock;
-
 
 #pragma mark - 属性:可读
 
@@ -361,6 +332,11 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *  返回的状态
  */
 @property (nonatomic, readonly) MISResponseType responseType;
+
+/**
+ *  返回的错误信息
+ */
+@property (nonatomic, readonly) NSString* errorMsg;
 
 /**
  *  网络是否有效
@@ -372,18 +348,15 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  */
 @property (nonatomic, assign, readonly, getter=isLoading) BOOL loading;
 
-
 /**
  *  请求到的数据
  */
 @property (nonatomic, strong, readonly) id responseData;
 
-
 /**
  *  是否缓存
  */
 @property (nonatomic, assign) BOOL shouldCache;
-
 
 #pragma mark - 子类实现：重组参数数组
 
@@ -394,7 +367,7 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *
  *  @return 新的参数
  */
-- (NSDictionary*) reformeParams:(NSDictionary*)params;
+- (NSDictionary*)reformeParams:(NSDictionary*)params;
 
 #pragma mark - 子类可以实现，实现的话，必须先调用一下super的该方法：拦截器方法
 
@@ -405,15 +378,14 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *
  *  @return 是否正确
  */
-- (BOOL) shouldSendRequestWithParams:(NSDictionary*)params;
-
+- (BOOL)shouldSendRequestWithParams:(NSDictionary*)params;
 
 /**
  *  请求以后调用
  *
  *  @param params 参数
  */
-- (void) afterRequestWithParams:(NSDictionary*)params;
+- (void)afterRequestWithParams:(NSDictionary*)params;
 
 #pragma mark - 公共方法
 
@@ -422,19 +394,41 @@ typedef NSDictionary*(^MISRequestParamBlock)();
  *
  *  @return 返回请求ID
  */
-- (NSInteger) start;
+- (NSInteger)start;
 
 /**
  *  取消所有的请求
  */
-- (void) cancelAllRequests;
+- (void)cancelAllRequests;
 
 /**
  *  取消ID对应的请求
  *
  *  @param requestId 请求ID
  */
-- (void) cancelRequestWithId:(NSInteger)requestId;
+- (void)cancelRequestWithId:(NSInteger)requestId;
 
+/**
+ *  暂停请求
+ *
+ *  @param requestId 请求的ID
+ */
+- (void)pauseRequestWithId:(NSInteger)requestId;
+
+/**
+ *  恢复请求
+ *
+ *  @param requestId 请求的ID
+ */
+- (void)resumeRequestWithId:(NSInteger)requestId;
+
+/**
+ *  请求是不是暂停
+ *
+ *  @param requestId 请求的ID
+ *
+ *  @return 是否暂停
+ */
+- (BOOL)isRequestPausedWithId:(NSInteger)requestId;
 
 @end

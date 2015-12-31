@@ -13,28 +13,27 @@
 
 #pragma mark - 类方法
 
-+ (NSDictionary*) commonParams
++ (NSDictionary*)commonParams
 {
-    MISAppContext *context = [MISAppContext sharedInstance];
+    MISAppContext* context = [MISAppContext sharedInstance];
     return @{
-             @"app_name" : context.appName,
-             @"machine_model_name" : context.machineModelName,
-             @"system_version" : context.systemName,
-             @"app_version" : context.appVersion,
-             @"app_build_version" : context.appBuildVersion
-             };
+        @"app_name" : context.appName ?: @"",
+        @"machine_model_name" : context.machineModelName ?: @"",
+        @"system_version" : context.systemName ?: @"",
+        @"app_version" : context.appVersion ?: @"",
+        @"app_build_version" : context.appBuildVersion ?: @""
+    };
 }
 
-+ (NSDictionary*) getCustomCommonParams
++ (NSDictionary*)getCustomCommonParams
 {
-    if(!customCommonParams){
+    if (!customCommonParams) {
         customCommonParams = @{};
     }
     return customCommonParams;
 }
 
-
-+ (void) setCustomCommonParams:(NSDictionary*)params
++ (void)setCustomCommonParams:(NSDictionary*)params
 {
     customCommonParams = params;
 }

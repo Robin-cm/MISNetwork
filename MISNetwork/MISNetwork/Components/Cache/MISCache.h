@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@class MISMemoryCache, MISDiskCache;
+#import "MISMemoryCache.h"
+#import "MISDiskCache.h"
 
 @interface MISCache : NSObject
 

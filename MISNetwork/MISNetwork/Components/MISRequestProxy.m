@@ -84,6 +84,32 @@
     }
 }
 
+- (void)pauseRequestWithRequestId:(NSInteger)requestId
+{
+    AFHTTPRequestOperation* requestOperation = self.dispatchTable[@(requestId)];
+    if (requestOperation && !requestOperation.isPaused) {
+        [requestOperation pause];
+    }
+}
+
+- (void)resumeRequestWithRequestId:(NSInteger)requestId
+{
+    AFHTTPRequestOperation* requestOperation = self.dispatchTable[@(requestId)];
+    if (requestOperation && requestOperation.isPaused) {
+        [requestOperation resume];
+    }
+}
+
+- (BOOL)isRequestPausedWithRequestId:(NSInteger)requestId
+{
+    BOOL res = NO;
+    AFHTTPRequestOperation* requestOperation = self.dispatchTable[@(requestId)];
+    if (requestOperation) {
+        res = requestOperation.isPaused;
+    }
+    return res;
+}
+
 #pragma mark - 公共方法
 
 - (NSInteger)callGetRequestWithParams:(NSDictionary*)params baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName success:(MISRequestCallBack)success fail:(MISRequestCallBack)fail
@@ -158,7 +184,7 @@
                 //请求成功，直接从列表中删除
                 [self.dispatchTable removeObjectForKey:requestId];
             }
-            
+
             [MISNetworkLogger loginfoWithResponse:operation.response responseString:operation.responseString request:operation.request error:nil];
 
             MISResponse* response = [[MISResponse alloc] initWithResponseString:operation.responseString responseData:operation.responseData requestId:requestId.integerValue request:operation.request params:params error:nil];
@@ -177,7 +203,7 @@
                 //请求成功，直接从列表中删除
                 [self.dispatchTable removeObjectForKey:requestId];
             }
-            
+
             [MISNetworkLogger loginfoWithResponse:operation.response responseString:operation.responseString request:operation.request error:error];
 
             MISResponse* response = [[MISResponse alloc] initWithResponseString:operation.responseString responseData:operation.responseData requestId:requestId.integerValue request:operation.request params:params error:error];

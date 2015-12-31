@@ -30,8 +30,7 @@
  *
  *  @return key值
  */
-- (NSString*) cacheKeyWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
-
+- (NSString*)cacheKeyWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
 
 /**
  *  得到缓存数据
@@ -40,8 +39,7 @@
  *
  *  @return 缓存数据
  */
-- (NSData*) cachedDataWithKey:(NSString*)key;
-
+- (NSData*)cachedDataWithKey:(NSString*)key;
 
 /**
  *  得到混存的数据
@@ -52,8 +50,7 @@
  *
  *  @return 缓存数据
  */
-- (NSData*) cachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
-
+- (NSData*)cachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
 
 /**
  *  缓存数据
@@ -61,8 +58,7 @@
  *  @param data 数据
  *  @param key  键值
  */
-- (void) cacheDataWithData:(NSData*)data key:(NSString*)key;
-
+- (void)cacheDataWithData:(NSData*)data key:(NSString*)key;
 
 /**
  *  混存数据
@@ -72,16 +68,14 @@
  *  @param methodName 请求方法
  *  @param params     参数
  */
-- (void) cacheDataWithData:(NSData*)data baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
-
+- (void)cacheDataWithData:(NSData*)data baseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
 
 /**
  *  删除缓存数据
  *
  *  @param key KEY值
  */
-- (void) deleteCachedDataWithKey:(NSString*)key;
-
+- (void)deleteCachedDataWithKey:(NSString*)key;
 
 /**
  *  删除缓存数据
@@ -90,33 +84,27 @@
  *  @param methodName 请求方法
  *  @param params     参数
  */
-- (void) deleteCachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
-
+- (void)deleteCachedDataWithBaseUrl:(NSString*)baseUrl methodName:(NSString*)methodName params:(NSDictionary*)params;
 
 /**
  *  清空缓存
  */
-- (void) clean;
+- (void)clean;
 
 @end
 
-
-
-@interface MISRequestCacheObject : NSObject
-
-@property (nonatomic, copy, readonly) NSData* content;
-
-@property (nonatomic, copy, readonly) NSDate* lastUpdateTime;
-
-@property (nonatomic, assign, readonly) BOOL isOutdated;
-
-@property (nonatomic, assign, readonly) BOOL isEmpty;
-
-- (instancetype)initWithContent:(NSData*)content;
-
-- (void)updateContent:(NSData*)content;
-
-@end
-
-
-
+//@interface MISRequestCacheObject : NSObject
+//
+//@property (nonatomic, copy, readonly) NSData* content;
+//
+//@property (nonatomic, copy, readonly) NSDate* lastUpdateTime;
+//
+//@property (nonatomic, assign, readonly) BOOL isOutdated;
+//
+//@property (nonatomic, assign, readonly) BOOL isEmpty;
+//
+//- (instancetype)initWithContent:(NSData*)content;
+//
+//- (void)updateContent:(NSData*)content;
+//
+//@end
